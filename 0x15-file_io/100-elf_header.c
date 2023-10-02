@@ -133,26 +133,7 @@ void print_version(unsigned char *e_ident)
 
 /**
  * print_osabi - Prints the OS/ABI of an ELF header.
- * @e_ident: A pointer to an array containing the ELF 
- * identification information.
- *
- * Description:
- * This function takes a pointer to an array containing the ELF
- * identification
- * information (e_ident) and extracts the OS/ABI value from it.
- * The OS/ABI value
- * represents the specific operating system and ABI used for the
- * executable or
- * shared object. The function then prints out a descriptive message
- * corresponding
- * to the OS/ABI value, helping to identify the target environment
- * for the ELF file.
- * The possible values and their corresponding OS/ABI
- * messages are listed in the
- * switch case. This function is designed to enhance the
- * readability of the ELF header
- * information display by providing a human-readable
- * representation of the OS/ABI.
+ * @e_ident: A pointer to an array containing the ELF version.
  */
 void print_osabi(unsigned char *e_ident)
 {
@@ -266,18 +247,7 @@ void print_entry(unsigned long int e_entry, unsigned char *e_ident)
  * close_elf - Closes an ELF file.
  * @elf: The file descriptor of the ELF file.
  *
- * Description:
- * This function takes an open file descriptor representing
- * an ELF file and
- * attempts to close it. If the file cannot be closed
- * successfully, an error
- * message is printed to stderr, indicating the failure to
- * close the file,
- * and the program exits with exit code 98. This
- * function is designed to be
- * used in conjunction with ELF file analysis,
- * ensuring proper cleanup after
- * reading and processing the ELF header information.
+ * Description: If the file cannot be closed - exit code 98.
  */
 void close_elf(int elf)
 {
@@ -290,21 +260,15 @@ void close_elf(int elf)
 }
 
 /**
- * main - Displays the information contained in the ELF header
- *        at the start of an ELF file.
+ * main - Displays the information contained in the
+ *        ELF header at the start of an ELF file.
  * @argc: The number of arguments supplied to the program.
  * @argv: An array of pointers to the arguments.
  *
- * Return: Always returns 0 on success.
+ * Return: 0 on success.
  *
- * Description:
- * This program reads an ELF file and prints out specific information
- * from the ELF header, such as the magic number, class, data encoding,
- * version, OS/ABI, ABI version, type, and entry point address. It is
- * designed to be used with ELF files to analyze and display relevant
- * information. If the file is not an ELF file or the function fails,
- * the program exits with exit code 98 and displays a comprehensive
- * error message to stderr.
+ * Description: If the file is not an ELF File or
+ *              the function fails - exit code 98.
  */
 int main(int __attribute__((__unused__)) argc, char *argv[])
 {
@@ -344,7 +308,8 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	print_type(header->e_type, header->e_ident);
 	print_entry(header->e_entry, header->e_ident);
 
-	free(header);
-	close_elf(o);
+free(header);
+close_elf(o);
+
 	return (0);
 }
